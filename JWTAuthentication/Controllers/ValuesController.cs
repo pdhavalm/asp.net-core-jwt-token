@@ -18,9 +18,9 @@ namespace JWTAuthentication.Controllers
         {
             var currentUser = HttpContext.User;
             int spendtimeWithCompany = 0;
-            if (currentUser.HasClaim(c => c.Type == "DateOfJoining"))
+            if (currentUser.HasClaim(c => c.Type == "CreatedDate"))
             {
-                DateTime date = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == "DateOfJoining").Value); ;
+                DateTime date = DateTime.Parse(currentUser.Claims.FirstOrDefault(c => c.Type == "CreatedDate").Value); ;
                 spendtimeWithCompany = DateTime.Now.Year - date.Year;
             }
 

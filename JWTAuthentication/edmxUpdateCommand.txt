@@ -1,0 +1,1 @@
+﻿Scaffold-DbContext "Server=DESKTOP-FUGEFHK\MSSQLEXPRESS;Database=JwtToken;user id=sa;password=123;"Microsoft.EntityFrameworkCore.SqlServer -OutputDir Entities  -F

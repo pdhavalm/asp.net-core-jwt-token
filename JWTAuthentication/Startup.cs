@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using JWTAuthentication.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -36,6 +38,8 @@ namespace JWTAuthentication
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
+            services.AddDbContext<JwtTokenContext>(
+               options => { options.UseSqlServer(this.Configuration.GetConnectionString("connection")); });
             services.AddMvc();
         }
 
@@ -54,6 +58,7 @@ namespace JWTAuthentication
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
+            app.UseWelcomePage();
         }
     }
 }
