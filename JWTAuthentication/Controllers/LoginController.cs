@@ -28,7 +28,7 @@ namespace JWTAuthentication.Controllers
         public IActionResult Login([FromBody]User model)
         {
             IActionResult response = Unauthorized();
-            var user = _context.User.Where(u => u.Email == model.Email.ToLower() &&
+            var user = _context.User.Where(u => u.Email == model.UserName.ToLower() &&
                     u.Password == EncryptDecrypt.Encrypt(model.Password)).FirstOrDefault();
 
             return user != null ? Ok(new { token = GenerateJWTToken(user) }) : response;

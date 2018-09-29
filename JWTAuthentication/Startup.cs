@@ -41,6 +41,14 @@ namespace JWTAuthentication
             services.AddDbContext<JwtTokenContext>(
                options => { options.UseSqlServer(this.Configuration.GetConnectionString("connection")); });
             services.AddMvc();
+
+            services.AddCors(
+                options =>
+                {
+                    options.AddPolicy(
+                        "CorsPolicy",
+                        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader().AllowCredentials());
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +63,7 @@ namespace JWTAuthentication
                 app.UseHsts();
             }
 
+            app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
